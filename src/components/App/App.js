@@ -9,7 +9,8 @@ import BookForm from '../BookForm/BookForm';
 class App extends Component {
   state = {
     books: {},
-    error: null
+    error: null,
+    selectedLetter: null
   }
 
   // LIFECYCLE METHODS
@@ -41,17 +42,26 @@ class App extends Component {
       this.setState({ error: error.message });
     }
   }
+
+  handleLetterSelection = letter => {
+    this.setState(prev => ({
+      selectedLetter: {
+        [letter]: prev.books[letter]
+      }
+    }));
+  }
  
   render() {
-    const { books, error } = this.state;
+    const { books, selectedLetter, error } = this.state;
     return (
       <div className="App">
         { error && <p className="errorText">{error}</p> }
         <Alphabet 
           sections={Object.keys(books)}
+          handleLetterClick={this.handleLetterSelection}
         />
         <BookList 
-          data={books}
+          data={selectedLetter || books}
         />
         <BookForm 
           onSubmit={this.handleFormSubmit}
