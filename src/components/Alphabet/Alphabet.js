@@ -44,7 +44,7 @@ class Alphabet extends Component {
 
 Alphabet.defaultProps = {
   data: [],
-  handleLetterClick: () => {}
+  handleLetterClick: (e) => { e.preventDefault() }
 }
 
 export default Alphabet;

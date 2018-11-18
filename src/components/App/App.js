@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
+import { getAllBooks } from '../../services/api';
 
 import Alphabet from '../Alphabet/Alphabet';
 
@@ -13,8 +13,10 @@ class App extends Component {
   // LIFECYCLE METHODS
   async componentDidMount() {
     try {
-      const { data } = await axios.get('/api/books');
-      this.setState({ books: data, error: null });
+
+      const books = await getAllBooks();
+      this.setState({ books, error: null });
+
     } catch (error) {
       this.setState({ error: error });
     }
@@ -26,9 +28,13 @@ class App extends Component {
   }
 
   render() {
+    const { books, error } = this.state;
     return (
       <div className="App">
-        <Alphabet />
+        { error && <p>{error}</p> }
+        <Alphabet 
+          data={books}
+        />
       </div>
     );
   }
