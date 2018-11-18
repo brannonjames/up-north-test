@@ -48,7 +48,10 @@ class BookForm extends Component {
           onChange={this.handleChange}
           value={description}
         ></textarea>
-        <button type="submit">Submit</button>
+        { this.props.isLoading ?
+          <p>Loading...</p> :
+          <button type="submit">Submit</button>
+        }
       </form>
     );
   }

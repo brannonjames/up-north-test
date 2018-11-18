@@ -10,36 +10,35 @@ class App extends Component {
   state = {
     books: {},
     error: null,
-    selectedLetter: null
+    selectedLetter: null,
+    formLoading: false,
+    listLoading: false
   }
 
   // LIFECYCLE METHODS
   async componentDidMount() {
     try {
 
+      this.setState({ listLoading: true, error: null });
       const books = await getAllBooks();
-      this.setState({ books });
+      this.setState({ books, listLoading: false });
 
     } catch (error) {
       console.log(error);
-      this.setState({ error: error.message });
+      this.setState({ error: error.message, listLoading: false });
     }
   }
 
   // HELPERS
-  clearError() {
-    this.setState({ error: null });
-  }
-
   handleFormSubmit = async data => {
     try {
       
+      this.setState({ formLoading: true, error: null });
       const updatedBooks = await addNewBook(data);
-      this.setState({ books: updatedBooks });
+      this.setState({ books: updatedBooks, formLoading: false });
 
     } catch (error) {
-      console.log(error)
-      this.setState({ error: error.message });
+      this.setState({ error: error.message, formLoading: false });
     }
   }
 
@@ -52,7 +51,7 @@ class App extends Component {
   }
  
   render() {
-    const { books, selectedLetter, error } = this.state;
+    const { books, selectedLetter, error, listLoading, formLoading } = this.state;
     return (
       <div className="App">
         <header>
@@ -66,10 +65,14 @@ class App extends Component {
         <main>
           <BookForm 
             onSubmit={this.handleFormSubmit}
+            isLoading={formLoading}
           />
-          <BookList 
-            data={selectedLetter || books}
-          />
+          { listLoading ? 
+            <p>Loading...</p> :
+            <BookList 
+              data={selectedLetter || books}
+            />
+          }
         </main>
       </div>
     );

@@ -8,3 +8,7 @@ header {
 main {
   display: flex;
 }
+
+.errorText {
+  color: red
+}
