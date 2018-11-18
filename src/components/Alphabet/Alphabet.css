@@ -1,0 +1,8 @@
+.Alphabet {
+  display: flex;
+  margin: 12px;
+}
+
+.Alphabet > * {
+  padding: 4px;
+}
