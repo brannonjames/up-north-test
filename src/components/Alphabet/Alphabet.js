@@ -1,33 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Alphabet.css';
 
 const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-const Alphabet = ({ sections, handleLetterClick, clearFilter }) => {
+class Alphabet extends Component {
+  shouldComponentUpdate(nextProps) {
+    const current = JSON.stringify(this.props.sections);
+    const next = JSON.stringify(nextProps.sections)
+    if (current === next) {
+      return false;
+    }
+    return true;
+  }
 
-  const renderAlphabet = () => {
+  renderAlphabet() {
     return ALPHABET.map(letter => {
-      if (sections.includes(letter)) {
-        return (
-          <a key={letter} href="www.google.com" onClick={e => {
-            e.preventDefault();
-            handleLetterClick(letter);
-          }}>
-            {letter}
-          </a>
-        );
+      if (this.props.sections.includes(letter)) {
+        return <a key={letter} href="www.google.com" onClick={e => {
+          e.preventDefault();
+          this.props.handleLetterClick(letter);
+        }}>
+          {letter}
+        </a>;
       }
       return <p key={letter}>{letter}</p>;
     });
   };
 
-  return (
-    <div className="Alphabet">
-      <button onClick={clearFilter}>Show All</button>
-      { renderAlphabet() }
-    </div>
-  )
-};
+  render() {
+    return (
+      <div className="Alphabet">
+        <button onClick={this.props.clearFilter}>Show All</button>
+        { this.renderAlphabet() }
+      </div>
+    );
+  }
+
+}
 
 Alphabet.defaultProps = {
   sections: [],

@@ -8,6 +8,13 @@ class BookForm extends Component {
     description: ''
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (this.props.isLoading === nextProps.isLoading) {
+      return false;
+    }
+    return true;
+  }
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -23,6 +30,7 @@ class BookForm extends Component {
   }
 
   render() {
+    console.log('render')
     const { ISBN, title, description } = this.state;
     return (
       <form 
