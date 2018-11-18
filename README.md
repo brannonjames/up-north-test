@@ -1,44 +1,54 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# UP North Developer Test
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+Ensure MongoDB is [installed](https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
 
-### `npm start`
+`mongod` to run database
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`npm install`
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+`npm start`
 
-### `npm test`
+## Notes
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-Database
 
-### `npm run build`
+I chose MongoDB as my database. It's usually quicker to set up and is appropiate
+since I'm not working with any relational data.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-Performance
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+To prevent unnessesary renders I added the shouldComponentUpdate to BookForm and 
+Alphabet since it's more rare these actually need to be updated. I also played with
+normalizing the books data coming in. This practice is recommended in Redux since it
+allows querying an object directly without having to loop over large arrays for certain updated.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-Search Bar 
 
-### `npm run eject`
+Other than building out a SearchBar component UI, filtering out the search query shouldn't change
+the code too much since all the data already sits in the client side. If I wanted to create a search
+method with the current setup, I would probably need to implement a method similar to this:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+const handleSearchQueryChange = query => {
+  const books = Object.keys(this.state.books).reduce((acc, val) => {
+    const filteredBooks = Object.keys(val).reducer((acc2, val2) => {
+      const currentBook = this.state.books[val][val2];
+      if (currentBook.title.includes(query)) {
+        acc2[currentBook.ISBN] = currentBook;
+        return acc2;
+      }
+    }, {})
+    acc[val] = filteredBooks;
+    return acc;
+  }, {});
+  this.setState({ .books });
+}
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+In retrospect, normalizing all the incoming data probably was not worth it. 
+ 
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+ 
