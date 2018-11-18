@@ -3,7 +3,7 @@ import './Alphabet.css';
 
 const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-const Alphabet = ({ sections, handleLetterClick }) => {
+const Alphabet = ({ sections, handleLetterClick, clearFilter }) => {
 
   const renderAlphabet = () => {
     return ALPHABET.map(letter => {
@@ -23,6 +23,7 @@ const Alphabet = ({ sections, handleLetterClick }) => {
 
   return (
     <div className="Alphabet">
+      <button onClick={clearFilter}>Show All</button>
       { renderAlphabet() }
     </div>
   )

@@ -59,6 +59,7 @@ class App extends Component {
         <Alphabet 
           sections={Object.keys(books)}
           handleLetterClick={this.handleLetterSelection}
+          clearFilter={() => this.setState({ selectedLetter: null })}
         />
         <BookList 
           data={selectedLetter || books}
