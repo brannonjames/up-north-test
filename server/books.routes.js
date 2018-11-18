@@ -13,8 +13,11 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   Book.create(req.body)
-    .then(function(book) {
-      res.send(book);
+    .then(function() {
+      return Book.find();
+    })
+    .then(function(books) {
+      res.send(books);
     })
     .catch(function(error) {
       next(error);

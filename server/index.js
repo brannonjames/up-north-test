@@ -1,4 +1,5 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bookRoutes = require('./books.routes');
@@ -9,6 +10,7 @@ mongoose.connect(process.env.PORT || "mongodb://localhost/up-north-text", { useN
 
 // MIDDLEWARE
 app.use(bodyParser.json());
+app.use(express.static('build'));
 
 // BOOK ROUTES
 app.use('/api/books', bookRoutes);

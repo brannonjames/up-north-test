@@ -7,14 +7,14 @@ const alphabetizeBooks = booksArr => {
 // converting the incoming array allows for faster retrieval of children
 // In this case it also helps to section books by letter 
 export const convertArrayToBooksObj = booksArr => {
+  // console.log(booksArr);
   const sortedBooks = alphabetizeBooks(booksArr);
   return sortedBooks.reduce((accumulator, value) => {
     const firstLetter = String(value.title[0]).toUpperCase();
     accumulator[firstLetter] = {
       ...accumulator[firstLetter],
-      [value._id]: value
+      [value.ISBN]: value
     };
-    delete accumulator[firstLetter][value._id]._id;
     return accumulator;
   }, {});
 }
