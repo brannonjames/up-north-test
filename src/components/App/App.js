@@ -55,18 +55,22 @@ class App extends Component {
     const { books, selectedLetter, error } = this.state;
     return (
       <div className="App">
-        { error && <p className="errorText">{error}</p> }
-        <Alphabet 
-          sections={Object.keys(books)}
-          handleLetterClick={this.handleLetterSelection}
-          clearFilter={() => this.setState({ selectedLetter: null })}
-        />
-        <BookList 
-          data={selectedLetter || books}
-        />
-        <BookForm 
-          onSubmit={this.handleFormSubmit}
-        />
+        <header>
+          { error && <p className="errorText">{error}</p> }
+          <Alphabet 
+            sections={Object.keys(books)}
+            handleLetterClick={this.handleLetterSelection}
+            clearFilter={() => this.setState({ selectedLetter: null })}
+          />
+        </header>
+        <main>
+          <BookForm 
+            onSubmit={this.handleFormSubmit}
+          />
+          <BookList 
+            data={selectedLetter || books}
+          />
+        </main>
       </div>
     );
   }

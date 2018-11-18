@@ -1,0 +1,13 @@
+.BookForm {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  margin: 0 2%;
+  padding: 4%;
+  border-right: 1px solid black;
+}
+
+.BookForm > * {
+  margin: 8px 0;
+  font-size: 1.2rem;
+}
