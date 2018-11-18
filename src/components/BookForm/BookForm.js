@@ -8,11 +8,14 @@ class BookForm extends Component {
     description: ''
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (this.props.isLoading === nextProps.isLoading) {
-      return false;
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.isLoading !== nextProps.isLoading) {
+      return true;
     }
-    return true;
+    if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
+      return true
+    }
+    return false;
   }
 
   handleChange = e => {
@@ -30,7 +33,6 @@ class BookForm extends Component {
   }
 
   render() {
-    console.log('render')
     const { ISBN, title, description } = this.state;
     return (
       <form 
