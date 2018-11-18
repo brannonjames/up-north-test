@@ -33,7 +33,7 @@ class App extends Component {
   handleFormSubmit = async data => {
     try {
       
-      this.setState({ formLoading: true, error: null });
+      this.setState({ formLoading: true, error: null, selectedLetter: null });
       const updatedBooks = await addNewBook(data);
       this.setState({ books: updatedBooks, formLoading: false });
 
