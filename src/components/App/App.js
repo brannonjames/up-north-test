@@ -3,10 +3,11 @@ import './App.css';
 import { getAllBooks } from '../../services/api';
 
 import Alphabet from '../Alphabet/Alphabet';
+import BookList from '../BookList/BookList';
 
 class App extends Component {
   state = {
-    books: [],
+    books: {},
     error: null
   }
 
@@ -15,14 +16,15 @@ class App extends Component {
     try {
 
       const books = await getAllBooks();
-      this.setState({ books, error: null });
+      this.setState({ books });
 
     } catch (error) {
-      this.setState({ error: error });
+      console.log(error);
+      this.setState({ error: error.message });
     }
   }
 
-  // HELPER METHODS
+  // HELPERS
   clearError() {
     this.setState({ error: null });
   }
@@ -31,8 +33,11 @@ class App extends Component {
     const { books, error } = this.state;
     return (
       <div className="App">
-        { error && <p>{error}</p> }
+        { error && <p className="errorText">{error}</p> }
         <Alphabet 
+          sections={Object.keys(books)}
+        />
+        <BookList 
           data={books}
         />
       </div>

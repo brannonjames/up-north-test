@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { convertArrayToBooksObj } from './normalize';
 
 const ENDPOINT = '/api/books';
 
@@ -6,10 +7,11 @@ export const getAllBooks = async () => {
   try {
 
     const { data } = await axios.get(ENDPOINT);
-    return data;
+    const books = convertArrayToBooksObj(data);
+    return books;
 
   } catch (error) {
     console.log(error)
-    return 'Could not load books';
+    throw Error('Could not load books');
   }
 }

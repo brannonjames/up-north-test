@@ -1,49 +1,35 @@
-import React, { Component } from 'react';
-import './Alphabet.css'
+import React from 'react';
+import './Alphabet.css';
 
 const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-class Alphabet extends Component {
+const Alphabet = ({ sections, handleLetterClick }) => {
 
-  dataContainsthisLetter(letter) {
-    const { data } = this.props;
-    return data.some(book => {
-      const firstLetterofTitle = book.title[0].toUpperCase();
-       return firstLetterofTitle === letter
-    });
-  }
-
-  renderAlphabet() {
-    const { handleLetterClick } = this.props;
+  const renderAlphabet = () => {
     return ALPHABET.map(letter => {
-      if (this.dataContainsthisLetter(letter)) {
+      if (sections.includes(letter)) {
         return (
-          <a
-            key={letter}
-            href="www" 
-            onClick={handleLetterClick}
-          >
+          <a key={letter} href="www.google.com" onClick={e => {
+            e.preventDefault();
+            handleLetterClick(letter);
+          }}>
             {letter}
           </a>
         );
       }
-      return (
-        <p key={letter}>{letter}</p>
-      )
+      return <p key={letter}>{letter}</p>;
     });
-  }
+  };
 
-  render() {
-    return (
-      <div className="Alphabet">
-        { this.renderAlphabet() }
-      </div>
-    )
-  }
-}
+  return (
+    <div className="Alphabet">
+      { renderAlphabet() }
+    </div>
+  )
+};
 
 Alphabet.defaultProps = {
-  data: [],
+  sections: [],
   handleLetterClick: (e) => { e.preventDefault() }
 }
 
