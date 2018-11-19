@@ -1,11 +1,21 @@
 import React from 'react'
 
 
-const BookList = ({ data }) => {
+const BookList = ({ data, onSelection }) => {
 
   const renderSectionItems = (section) => {
     return Object.values(data[section]).map(book => (
-      <p key={book.ISBN}>{book.title}</p>
+      <p key={book.ISBN}>
+        <a 
+          href="www.google.com"
+          onClick={e => {
+            e.preventDefault()
+            onSelection(book);
+          }}
+        >
+          {book.title}
+        </a>
+      </p>
     )); 
   }
 

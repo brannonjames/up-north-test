@@ -5,6 +5,7 @@ import { getAllBooks, addNewBook } from '../../services/api';
 import Alphabet from '../Alphabet/Alphabet';
 import BookList from '../BookList/BookList';
 import BookForm from '../BookForm/BookForm';
+import CurrentBook from '../CurrentBook/CurrentBook';
 
 class App extends Component {
   state = {
@@ -12,7 +13,8 @@ class App extends Component {
     error: null,
     selectedLetter: null,
     formLoading: false,
-    listLoading: false
+    listLoading: false,
+    currentBook: null
   }
 
   // LIFECYCLE METHODS
@@ -49,9 +51,20 @@ class App extends Component {
       }
     }));
   }
+
+  handleBookSelection = book => {
+    this.setState({ currentBook: book });
+  }
  
   render() {
-    const { books, selectedLetter, error, listLoading, formLoading } = this.state;
+    const {
+      books,
+      selectedLetter,
+      error,
+      listLoading,
+      formLoading,
+      currentBook
+    } = this.state;
     return (
       <div className="App">
         <header>
@@ -71,8 +84,10 @@ class App extends Component {
             <p>Loading...</p> :
             <BookList 
               data={selectedLetter || books}
+              onSelection={this.handleBookSelection}
             />
           }
+          <CurrentBook currentBook={currentBook} />
         </main>
       </div>
     );
