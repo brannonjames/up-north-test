@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React from 'react';
+import './BookList.css';
 
 const BookList = ({ data, onSelection }) => {
 
@@ -33,7 +33,7 @@ const BookList = ({ data, onSelection }) => {
   }
 
   return (
-    <ul>
+    <ul className="BookList">
       { renderSections() }
     </ul>
   );
